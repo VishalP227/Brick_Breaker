@@ -44,8 +44,6 @@ export default class Game {
   update(deltaTime) {
     if (this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
 
-    if (this.currentLevel >= 3) this.gameState = GAMESTATE.FINISH;
-
     if (
       this.gameState === GAMESTATE.PAUSED ||
       this.gameState === GAMESTATE.MENU ||
@@ -56,6 +54,10 @@ export default class Game {
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
+      if (this.currentLevel > 2){
+        this.gameState = GAMESTATE.FINISH;
+        return
+      }
       this.gameState = GAMESTATE.NEWLEVEL;
       this.start();
     }
